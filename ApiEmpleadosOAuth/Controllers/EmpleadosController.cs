@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -46,6 +47,17 @@ namespace ApiEmpleadosOAuth.Controllers
             string jsonempleado = claims.SingleOrDefault(x => x.Type == "UserData").Value;
             Empleado emp = JsonConvert.DeserializeObject<Empleado>(jsonempleado);
             return emp;
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Authorize]
+        public ActionResult<List<Empleado>> Subordinados()
+        {
+            List<Claim> claims = HttpContext.User.Claims.ToList();
+            string jsonemp = claims.SingleOrDefault(x => x.Type == "UserData").Value;
+            Empleado emp = JsonConvert.DeserializeObject<Empleado>(jsonemp);
+            return this.repo.GetSubordinados(emp.IdEmpleado);
         }
 
     }

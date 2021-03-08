@@ -28,5 +28,10 @@ namespace ApiEmpleadosOAuth.Repositories
         {
             return this.context.Empleados.SingleOrDefault(x => x.Apellido == apellido && x.IdEmpleado == id);
         }
+
+        public List<Empleado> GetSubordinados (int id)
+        {
+            return this.context.Empleados.Where(x => x.Director == id).ToList();
+        }
     }
 }

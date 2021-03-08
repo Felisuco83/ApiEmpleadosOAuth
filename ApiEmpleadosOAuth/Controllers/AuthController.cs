@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ApiEmpleadosOAuth.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
